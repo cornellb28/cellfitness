@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import { CardList } from "./components/card-list/card-list.component";
 import Homepage from './pages/Homepage';
 import './App.css';
+import { Switch, Route } from "react-router-dom";
 
 class App extends Component {
 
@@ -22,7 +23,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Homepage />
+        <Switch>
+          <Route exact path="/" component={Homepage} />
+        </Switch>
         {/* <CardList monsters={this.state.monsters} /> */}
       </div>
     );
