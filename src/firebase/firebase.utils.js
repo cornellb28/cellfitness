@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import 'firebase/firestore'; // database
+import 'firebase/auth'; // authenication
 
 
 const config = {
@@ -15,7 +15,7 @@ const config = {
 
   // Making a API request. Async action
   export const createUserProfileDocument = async (userAuth, additionalData) => {
-    // I didn't get anything back return nothing
+    // I didn't get anything back return nothing. Exits from the function
     if(!userAuth) return;
 
     // It does exist
@@ -45,10 +45,11 @@ const config = {
 
   firebase.initializeApp(config);
 
-  export const auth = firebase.auth();
+  export const auth = firebase.auth(); 
   export const firestore = firebase.firestore();
 
   const provider = new firebase.auth.GoogleAuthProvider();
+
   provider.setCustomParameters({ prompt: 'select_account'});
   export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
