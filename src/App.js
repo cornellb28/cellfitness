@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // Components
-import { CardList } from "./components/card-list/card-list.component";
-import { SearchBox } from './components/card-list/search-box/search-box.comp';
+// import { CardList } from "./components/card-list/card-list.component";
+// import { SearchBox } from './components/card-list/search-box/search-box.comp';
 import Header from './components/header/Header.comp';
 // Pages
 import Homepage from './pages/homepage/Homepage';
@@ -25,7 +25,7 @@ class App extends Component {
       this.state = {
         // Inital state that will start off as null
         currentUser: null,
-        monsters: [],
+        // monsters: [],
         searchField: ''
       };
     }
@@ -60,10 +60,10 @@ class App extends Component {
   };
 
   render() {
-    const { monsters, searchField } = this.state;
-    const filteredMonsters = monsters.filter(monster =>
-      monster.name.toLowerCase().includes(searchField.toLowerCase())
-    );
+    // const { monsters, searchField } = this.state;
+    // const filteredMonsters = monsters.filter(monster =>
+    //   monster.name.toLowerCase().includes(searchField.toLowerCase())
+    // );
     return (
       <div className="App">
         <Header />
@@ -82,8 +82,8 @@ class App extends Component {
             }
           />
         </Switch>
-        <SearchBox onSearchChange={this.onSearchChange} />
-        <CardList monsters={filteredMonsters} />
+        {/* <SearchBox onSearchChange={this.onSearchChange} /> */}
+        {/* <CardList monsters={filteredMonsters} /> */}
         
       </div>
     );

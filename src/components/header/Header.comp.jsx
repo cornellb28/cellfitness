@@ -3,9 +3,11 @@ import './Header.styles.scss';
 import { connect } from 'react-redux';
 import {auth} from '../../firebase/firebase.utils';
 import { Link } from 'react-router-dom';
+import CartIcon from '../cart-icon/cart-icon.comp';
+import CartDropdown from "../cart-dropdown/cart-dropdown.comp";
 
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
     <div className="header">
         <Link className="logo-container" to="/">
             <img src="http://thecell4life.com/wp-content/uploads/2017/11/The-Cell-logo-250x63.png" alt="Cell Fitness" />
@@ -18,17 +20,21 @@ const Header = ({ currentUser }) => (
               CONTACT
             </Link>
             {
-              currentUser ?
-              <div className='option' onClick={() => auth.signOut()}>Sign Out</div> : 
-              <Link className="option" to="/signin">Sign In</Link>
-            }
+              currentUser ? (
+              <div className='option' onClick={() => auth.signOut()}>Sign Out</div>
+              ) : (
+              <Link className="option" to="/signin">Sign Out</Link>
+              )}
+            <CartIcon />
         </div>
+        { hidden ? null : <CartDropdown /> }
     </div>
 );
 
 // Pulls in user info as props
-const mapStateToProps = state => ({
-currentUser: state.user.currentUser
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden
 });
 
 export default connect(mapStateToProps)(Header);
