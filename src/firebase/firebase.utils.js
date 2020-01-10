@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase/app'; // Gives access to database and auth
 import 'firebase/firestore'; // database
 import 'firebase/auth'; // authenication
 
@@ -45,7 +45,7 @@ const config = {
 
   firebase.initializeApp(config);
 
-  export const auth = firebase.auth(); 
+  export const auth = firebase.auth(); // From the import
   export const firestore = firebase.firestore();
 
   const provider = new firebase.auth.GoogleAuthProvider();

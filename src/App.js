@@ -26,7 +26,7 @@ class App extends Component {
         // Inital state that will start off as null
         currentUser: null,
         // monsters: [],
-        searchField: ''
+        // searchField: ''
       };
     }
 
@@ -34,9 +34,9 @@ class App extends Component {
 
   componentDidMount() {
     // This is for the monster component
-      fetch('https://jsonplaceholder.typicode.com/users')
-        .then(response => response.json())
-        .then(users => this.setState({ monsters: users }));
+      // fetch('https://jsonplaceholder.typicode.com/users')
+      //   .then(response => response.json())
+      //   .then(users => this.setState({ monsters: users }));
 
         const { setCurrentUser } = this.props;
 
