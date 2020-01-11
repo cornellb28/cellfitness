@@ -1,44 +1,21 @@
-import React, { Component } from 'react';
-// Components
-// import { CardList } from "./components/card-list/card-list.component";
-// import { SearchBox } from './components/card-list/search-box/search-box.comp';
-import Header from './components/header/Header.comp';
-// Pages
-import Homepage from './pages/homepage/Homepage';
-import Shop from './pages/shop/shop.comp';
-import SignInAndSignUpPage from "./pages/sign-register/sign-register.comp";
-// Styles
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import './App.css';
 
-// Roater & Auth
-import { Switch, Route, Redirect } from "react-router-dom";
+import HomePage from './pages/homepage/homepage.component';
+import ShopPage from './pages/shop/shop.component';
+import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
 
-
-
-class App extends Component {
-  constructor() {
-      super();
-
-      this.state = {
-        // Inital state that will start off as null
-        currentUser: null,
-        // monsters: [],
-        // searchField: ''
-      };
-    }
-
+class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    // This is for the monster component
-      // fetch('https://jsonplaceholder.typicode.com/users')
-      //   .then(response => response.json())
-      //   .then(users => this.setState({ monsters: users }));
-
-        const { setCurrentUser } = this.props;
+    const { setCurrentUser } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -51,25 +28,22 @@ class App extends Component {
           });
         });
       }
+
       setCurrentUser(userAuth);
     });
-  } // componentDidMount Ends
+  }
 
-  onSearchChange = event => {
-    this.setState({ searchField: event.target.value });
-  };
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
 
   render() {
-    // const { monsters, searchField } = this.state;
-    // const filteredMonsters = monsters.filter(monster =>
-    //   monster.name.toLowerCase().includes(searchField.toLowerCase())
-    // );
     return (
-      <div className="App">
+      <div>
         <Header />
         <Switch>
-          <Route exact path="/" component={Homepage} />
-          <Route exact path="/shop" component={Shop} />
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
           <Route
             exact
             path='/signin'
@@ -82,13 +56,10 @@ class App extends Component {
             }
           />
         </Switch>
-        {/* <SearchBox onSearchChange={this.onSearchChange} /> */}
-        {/* <CardList monsters={filteredMonsters} /> */}
-        
       </div>
     );
   }
-} // render ends
+}
 
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser
